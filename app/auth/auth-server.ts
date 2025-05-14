@@ -1,9 +1,10 @@
 import type { BetterAuthOptions } from "better-auth";
 import { betterAuth } from "better-auth";
-import { Kysely, CamelCasePlugin } from "kysely";
+import { CamelCasePlugin, Kysely } from "kysely";
 // import { D1Dialect } from "@noxharmonium/kysely-d1";
+import { D1Dialect } from "kysely-d1";
 import type { AppLoadContext } from "react-router";
-import { D1Dialect } from 'kysely-d1';
+import { Resend } from "resend";
 
 let authInstance: ReturnType<typeof betterAuth>;
 
@@ -11,15 +12,30 @@ export function createBetterAuth(
   database: BetterAuthOptions["database"],
   env: {
     BETTER_AUTH_SECRET: string;
+    RESEND_API_KEY: string;
     // OAUTH_GITHUB_CLIENT_ID: string;
     // OAUTH_GITHUB_CLIENT_SECRET: string;
-  },
+  }
 ) {
   if (!authInstance) {
     authInstance = betterAuth({
       database,
+      emailVerification: {
+        sendOnSignUp: true,
+        sendVerificationEmail: async ({ user, url, token }, request) => {
+          const resend = new Resend(env.RESEND_API_KEY);
+
+          await resend.emails.send({
+            from: "Acme <onboarding@resend.dev>",
+            to: [user.email],
+            subject: "Verify your email address",
+            text: `Click the link to verify your email: ${url}`,
+          });
+        },
+      },
       emailAndPassword: {
         enabled: true,
+        requireEmailVerification: true,
       },
       secret: env.BETTER_AUTH_SECRET,
       // socialProviders: {
@@ -52,7 +68,7 @@ export function getAuth(ctx: AppLoadContext) {
         }),
         type: "sqlite",
       },
-      ctx.cloudflare.env,
+      ctx.cloudflare.env
     );
   }
 

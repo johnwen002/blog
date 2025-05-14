@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Form as ReactForm, useRouteLoaderData } from "react-router";
+import { Form as ReactForm } from "react-router";
 import { z } from "zod";
 import { getAuthClient } from "~/auth/auth-client";
 import { Button } from "~/components/ui/button";
@@ -44,6 +44,7 @@ const SignUpForm = () => {
           5
         )}`,
       },
+
       {
         onRequest: (ctx) => {
           // show loading state

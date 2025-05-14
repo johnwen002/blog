@@ -8,8 +8,6 @@ import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { cn } from "~/lib/utils";
 
-
-
 export function LoginForm({
   className,
   ...props
@@ -28,7 +26,7 @@ export function LoginForm({
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    await getAuthClient(loadData.baseURL).signIn.email(
+    await getAuthClient().signIn.email(
       {
         email: values.email,
         password: values.password,
