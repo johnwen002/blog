@@ -11,6 +11,7 @@ import { Button } from "~/components/ui/button";
 import { Form, FormField } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
+import Spin from "~/components/ui/spin";
 import { cn } from "~/lib/utils";
 
 const formSchema = z.object({
@@ -113,7 +114,7 @@ export function LoginForm({
             />
           </div>
           <Button type="submit" className="w-full" disabled={loading}>
-            Login
+            Login {loading && <Spin />}
           </Button>
 
           <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
