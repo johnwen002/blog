@@ -76,10 +76,15 @@ export default function SignupForm() {
               <FormField
                 control={form.control}
                 name="name"
-                render={() => (
+                render={({ field }) => (
                   <LabelInputContainer>
                     <Label htmlFor="name">name</Label>
-                    <Input id="name" placeholder="Tyler" type="text" />
+                    <Input
+                      id="name"
+                      placeholder="Tyler"
+                      type="text"
+                      {...field}
+                    />
                   </LabelInputContainer>
                 )}
               />
@@ -94,6 +99,7 @@ export default function SignupForm() {
                     id="email"
                     placeholder="projectmayhem@fc.com"
                     type="email"
+                    {...field}
                   />
                 </LabelInputContainer>
               )}
@@ -105,7 +111,12 @@ export default function SignupForm() {
               render={({ field }) => (
                 <LabelInputContainer className="mb-4">
                   <Label htmlFor="password">Password</Label>
-                  <Input id="password" placeholder="••••••••" type="password" />
+                  <Input
+                    id="password"
+                    placeholder="••••••••"
+                    type="password"
+                    {...field}
+                  />
                 </LabelInputContainer>
               )}
             />

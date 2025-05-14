@@ -78,7 +78,7 @@ export function LoginForm({ className }: React.ComponentProps<"form">) {
           <FormField
             name="email"
             control={form.control}
-            render={() => (
+            render={({field}) => (
               <div className="grid gap-3">
                 <Label htmlFor="email">Email</Label>
                 <Input
@@ -86,6 +86,7 @@ export function LoginForm({ className }: React.ComponentProps<"form">) {
                   type="email"
                   placeholder="m@example.com"
                   required
+                  {...field}
                 />
               </div>
             )}
@@ -94,7 +95,7 @@ export function LoginForm({ className }: React.ComponentProps<"form">) {
             <FormField
               name="password"
               control={form.control}
-              render={() => (
+              render={({field}) => (
                 <>
                   <div className="flex items-center">
                     <Label htmlFor="password">Password</Label>
@@ -105,7 +106,7 @@ export function LoginForm({ className }: React.ComponentProps<"form">) {
                       Forgot your password?
                     </a>
                   </div>
-                  <Input id="password" type="password" required />
+                  <Input id="password" type="password" required {...field} />
                 </>
               )}
             />
