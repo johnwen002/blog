@@ -1,5 +1,4 @@
 import { getAuth } from "~/auth/auth-server";
-import { Welcome } from "../welcome/welcome";
 import type { Route } from "./+types/home";
 
 export function meta({}: Route.MetaArgs) {
@@ -20,5 +19,5 @@ export async function loader({ context, request }: Route.LoaderArgs) {
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-  return <Welcome message={loaderData.user?.email || "no login"} />;
+  return <>home</>;
 }

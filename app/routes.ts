@@ -7,5 +7,11 @@ export default [
   layout("./layout/blog-layout.tsx", [
     route("/articles", "./routes/articles.tsx"),
   ]),
-  layout("./layout/bo-layout.tsx", [route("/home", "./routes/home.tsx")]),
+  layout(
+    "./layout/bo-layout.tsx",
+    {
+      id: "bo-layout",
+    },
+    [route("/", "./routes/home.tsx")]
+  ),
 ] satisfies RouteConfig;

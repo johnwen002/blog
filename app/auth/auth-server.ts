@@ -20,8 +20,22 @@ export function createBetterAuth(
   if (!authInstance) {
     authInstance = betterAuth({
       database,
+      rateLimit: {
+        enabled: true,
+      },
       emailVerification: {
         sendOnSignUp: true,
+        autoSignInAfterVerification: true,
+        sendResetPassword: async ({ user, url, token }, request) => {
+          const resend = new Resend(env.RESEND_API_KEY);
+
+          await resend.emails.send({
+            from: "Acme <onboarding@resend.dev>",
+            to: [user.email],
+            subject: "Reset your password",
+            text: `Click the link to reset your password: ${url}`,
+          });
+        },
         sendVerificationEmail: async ({ user, url, token }, request) => {
           const resend = new Resend(env.RESEND_API_KEY);
 

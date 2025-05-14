@@ -1,6 +1,7 @@
-import { GalleryVerticalEnd } from "lucide-react"
+import { GalleryVerticalEnd } from "lucide-react";
 
-import { LoginForm } from "~/components/login-form"
+import { LoginForm } from "~/components/login-form";
+import { FireworksBackground } from "~/components/ui/fireworks";
 
 export default function LoginPage() {
   return (
@@ -20,13 +21,12 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
-      <div className="bg-muted relative hidden lg:block">
-        <img
-          src="/placeholder.svg"
-          alt="Image"
-          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+      <div className="bg-black relative hidden lg:block">
+        <FireworksBackground
+          className="absolute inset-0 flex items-center justify-center rounded-xl black"
+          // color={theme === "dark" ? "white" : "black"}
         />
       </div>
     </div>
-  )
+  );
 }
