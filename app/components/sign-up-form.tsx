@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { Form as ReactForm, useLoaderData } from "react-router";
 import { z } from "zod";
@@ -9,13 +10,13 @@ import { Button } from "~/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
+import Spin from "~/components/ui/spin";
 import { generateRandomString } from "~/lib/utils";
 const SignUpForm = () => {
   const loadData = useLoaderData();
@@ -24,6 +25,7 @@ const SignUpForm = () => {
     password: z.string().min(8).max(50),
     name: z.string().min(1).max(50),
   });
+  const [loading, setLoading] = React.useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -47,13 +49,16 @@ const SignUpForm = () => {
         onRequest: (ctx) => {
           // show loading state
           console.log("loading...");
+          setLoading(true);
         },
         onSuccess: (ctx) => {
           // redirect to home
           console.log("success");
+          setLoading(false);
         },
         onError: (ctx) => {
           console.log(ctx.error);
+          setLoading(false);
         },
       }
     );
@@ -63,7 +68,7 @@ const SignUpForm = () => {
     <div>
       <h1>Sign Up</h1>
       <Form {...form}>
-        <ReactForm onSubmit={form.handleSubmit(onSubmit)}>
+        <ReactForm onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
             control={form.control}
             name="name"
@@ -73,9 +78,7 @@ const SignUpForm = () => {
                 <FormControl>
                   <Input placeholder="shadcn" {...field} />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
+
                 <FormMessage />
               </FormItem>
             )}
@@ -89,9 +92,7 @@ const SignUpForm = () => {
                 <FormControl>
                   <Input placeholder="shadcn" {...field} />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
+
                 <FormMessage />
               </FormItem>
             )}
@@ -105,15 +106,19 @@ const SignUpForm = () => {
                 <FormControl>
                   <Input placeholder="shadcn" {...field} />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
+
                 <FormMessage />
               </FormItem>
             )}
           />
 
-          <Button type="submit">Sign Up</Button>
+          <Button
+            type="submit"
+            className="flex items-center justify-center gap-3"
+            disabled={loading}
+          >
+            Sign Up {loading && <Spin />}
+          </Button>
         </ReactForm>
       </Form>
     </div>

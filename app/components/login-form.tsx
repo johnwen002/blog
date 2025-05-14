@@ -1,13 +1,53 @@
-import { cn } from "~/lib/utils"
-import { Button } from "~/components/ui/button"
-import { Input } from "~/components/ui/input"
-import { Label } from "~/components/ui/label"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { useLoaderData } from "react-router";
+import { z } from "zod";
+import { getAuthClient } from "~/auth/auth-client";
+import { Button } from "~/components/ui/button";
+import { Input } from "~/components/ui/input";
+import { Label } from "~/components/ui/label";
+import { cn } from "~/lib/utils";
+
+
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"form">) {
-  
+  const loadData = useLoaderData();
+  const formSchema = z.object({
+    email: z.string().email(),
+    password: z.string().min(8).max(50),
+  });
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    await getAuthClient(loadData.baseURL).signIn.email(
+      {
+        email: values.email,
+        password: values.password,
+      },
+      {
+        onRequest: (ctx) => {
+          // show loading state
+          console.log("loading...");
+        },
+        onSuccess: (ctx) => {
+          // redirect to home
+          console.log("success");
+        },
+        onError: (ctx) => {
+          console.log(ctx.error);
+        },
+      }
+    );
+  }
   return (
     <form className={cn("flex flex-col gap-6", className)} {...props}>
       <div className="flex flex-col items-center gap-2 text-center">
@@ -58,5 +98,5 @@ export function LoginForm({
         </a>
       </div>
     </form>
-  )
+  );
 }
