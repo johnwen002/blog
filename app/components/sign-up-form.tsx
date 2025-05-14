@@ -19,7 +19,6 @@ import { Input } from "~/components/ui/input";
 import Spin from "~/components/ui/spin";
 import { generateRandomString } from "~/lib/utils";
 const SignUpForm = () => {
-  const loadData = useRouteLoaderData("sign-up");
   const formSchema = z.object({
     email: z.string().email(),
     password: z.string().min(8).max(50),
