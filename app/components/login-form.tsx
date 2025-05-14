@@ -43,10 +43,12 @@ export function LoginForm({
         onRequest: (ctx) => {
           // show loading state
           console.log("loading...");
+          setLoading(true);
         },
         onSuccess: (ctx) => {
           // redirect to home
           console.log("success");
+          setLoading(false);
         },
         onError: (ctx) => {
           console.log(ctx.error);

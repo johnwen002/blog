@@ -29,6 +29,7 @@ export default function SignupForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log("sign up")
     await getAuthClient().signUp.email(
       {
         email: values.email,
