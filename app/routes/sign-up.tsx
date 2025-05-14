@@ -1,3 +1,4 @@
+import { useLoaderData } from "react-router";
 import { getAuth } from "~/auth/auth-server";
 import SignUpForm from "~/components/sign-up-form";
 import type { Route } from "./+types/sign-up";
@@ -13,6 +14,8 @@ export async function loader({ context, request }: Route.LoaderArgs) {
 }
 
 const Page = () => {
+  const load = useLoaderData();
+
   return (
     <>
       <SignUpForm />

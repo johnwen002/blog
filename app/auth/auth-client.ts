@@ -2,16 +2,9 @@ import { createAuthClient } from "better-auth/client";
 
 let authClient: ReturnType<typeof createAuthClient>;
 
-export function getAuthClient({
-  // the base url of your auth server
-  baseURL = "http://localhost:5173",
-}: {
-  baseURL?: string;
-}) {
+export function getAuthClient() {
   if (!authClient) {
-    authClient = createAuthClient({
-      baseURL,
-    });
+    authClient = createAuthClient();
   }
 
   return authClient;

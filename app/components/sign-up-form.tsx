@@ -36,7 +36,7 @@ const SignUpForm = () => {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    await getAuthClient(loadData.baseURL).signUp.email(
+    await getAuthClient().signUp.email(
       {
         email: values.email,
         password: values.password,
