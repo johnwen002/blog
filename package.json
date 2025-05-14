@@ -4,8 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "react-router dev",
-    "build": "npm run db:migrate-production && react-router build",
-    "deploy": "npm run build && wrangler deploy",
+    "build": "react-router build",
+    "deploy": "drizzle-kit migrate && wrangler deploy",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "wrangler d1 migrations apply --local DB",
     "db:migrate-production": "drizzle-kit migrate",
