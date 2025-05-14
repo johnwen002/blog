@@ -1,5 +1,6 @@
-import type { Route } from "./+types/home";
+import { getAuth } from "~/auth/auth-server";
 import { Welcome } from "../welcome/welcome";
+import type { Route } from "./+types/home";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -8,10 +9,16 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export function loader({ context }: Route.LoaderArgs) {
-  return { message: context.cloudflare.env.VALUE_FROM_CLOUDFLARE };
+export async function loader({ context, request }: Route.LoaderArgs) {
+  const auth = getAuth(context);
+  const session = await auth.api.getSession({ headers: request.headers });
+
+  return {
+    baseURL: context.cloudflare.env.BETTER_AUTH_URL,
+    user: session?.user,
+  };
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-  return <Welcome message={loaderData.message} />;
+  return <Welcome message={loaderData.user?.email || "no login"} />;
 }

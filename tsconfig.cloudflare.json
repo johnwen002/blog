@@ -6,7 +6,9 @@
     "app/**/.server/**/*",
     "app/**/.client/**/*",
     "workers/**/*",
-    "worker-configuration.d.ts"
+    "worker-configuration.d.ts",
+    "database.ts",
+    "app/auth/auth-client.ts"
   ],
   "compilerOptions": {
     "composite": true,
