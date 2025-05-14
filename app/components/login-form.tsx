@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { NavLink, useLoaderData } from "react-router";
+import { NavLink, Form as RouterForm } from "react-router";
 import { toast } from "sonner";
 import { z } from "zod";
 import { getAuthClient } from "~/auth/auth-client";
@@ -13,15 +13,16 @@ import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { cn } from "~/lib/utils";
 
+const formSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8).max(50),
+});
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"form">) {
-  const loadData = useLoaderData();
-  const formSchema = z.object({
-    email: z.string().email(),
-    password: z.string().min(8).max(50),
-  });
+  // const loadData = useLoaderData();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -65,10 +66,9 @@ export function LoginForm({
   }
   return (
     <Form {...form}>
-      <form
+      <RouterForm
         className={cn("flex flex-col gap-6", className)}
         onSubmit={form.handleSubmit(onSubmit)}
-        {...props}
       >
         <div className="flex flex-col items-center gap-2 text-center">
           <h1 className="text-2xl font-bold">Login to your account</h1>
@@ -138,7 +138,7 @@ export function LoginForm({
           </a> */}
           <NavLink to="/sign-up">sign up</NavLink>
         </div>
-      </form>
+      </RouterForm>
     </Form>
   );
 }

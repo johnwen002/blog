@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { Form as RouterForm } from "react-router";
 import { z } from "zod";
 import { getAuthClient } from "~/auth/auth-client";
 import { Form, FormField } from "~/components/ui/form";
@@ -29,7 +30,7 @@ export default function SignupForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("sign up")
+    console.log("sign up");
     await getAuthClient().signUp.email(
       {
         email: values.email,
@@ -70,7 +71,7 @@ export default function SignupForm() {
           Login if you can because we don&apos;t have a login flow yet
         </p>
         <Form {...form}>
-          <form className="my-8" onSubmit={form.handleSubmit(onSubmit)}>
+          <RouterForm className="my-8" onSubmit={form.handleSubmit(onSubmit)}>
             <div className="mb-4 flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2">
               <FormField
                 control={form.control}
@@ -141,7 +142,7 @@ export default function SignupForm() {
                 <BottomGradient />
               </button>
             </div>
-          </form>
+          </RouterForm>
         </Form>
       </div>
     </StarsBackground>
