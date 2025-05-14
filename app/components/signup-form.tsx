@@ -60,10 +60,6 @@ export default function SignupForm() {
     );
   }
 
-  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   console.log("Form submitted");
-  // };
   return (
     <StarsBackground className="w-screen h-screen p-3 flex items-center justify-center">
       <div className="shadow-input mx-auto w-full max-w-md rounded-none bg-white p-4 md:rounded-2xl md:p-8 dark:bg-black">
