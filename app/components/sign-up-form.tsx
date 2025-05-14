@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Form as ReactForm, useLoaderData } from "react-router";
+import { Form as ReactForm, useRouteLoaderData } from "react-router";
 import { z } from "zod";
 import { getAuthClient } from "~/auth/auth-client";
 import { Button } from "~/components/ui/button";
@@ -19,7 +19,7 @@ import { Input } from "~/components/ui/input";
 import Spin from "~/components/ui/spin";
 import { generateRandomString } from "~/lib/utils";
 const SignUpForm = () => {
-  const loadData = useLoaderData();
+  const loadData = useRouteLoaderData("sign-up");
   const formSchema = z.object({
     email: z.string().email(),
     password: z.string().min(8).max(50),
