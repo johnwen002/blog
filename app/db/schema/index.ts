@@ -1,5 +1,23 @@
-import { user, session, account, verification } from "./auth-schema";
+import { account, session, user, verification } from "./auth-schema";
+import { articleTags, articles, comments, tags } from "./blog-schema";
+export const schema = {
+  user,
+  session,
+  account,
+  verification,
+  articles,
+  tags,
+  articleTags,
+  comments,
+};
 
-export const schema = { user, session, account, verification };
-
-export { user, session, account, verification };
+export {
+  account,
+  articleTags,
+  articles,
+  comments,
+  session,
+  tags,
+  user,
+  verification,
+};

@@ -3,14 +3,14 @@ import { user } from "~/db/schema/auth-schema";
 
 export const tags = sqliteTable("tags", {
   id: text("id").primaryKey(),
-  slug: text("slug").notNull(),
+  slug: text("slug").notNull().unique(),
   description: text("description"),
   createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
 });
 
 export const articles = sqliteTable("articles", {
   id: text("id").primaryKey(),
-  title: text("title").notNull(),
+  title: text("title").notNull().unique(),
   content: text("content").notNull(),
   authorId: text("author_id")
     .notNull()
