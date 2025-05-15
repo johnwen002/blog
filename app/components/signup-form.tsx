@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
+import { ArrowRight } from "lucide-react";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Form as RouterForm } from "react-router";
@@ -10,6 +11,7 @@ import { getAuthClient } from "~/auth/auth-client";
 import { Form, FormField } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
+import Spin from "~/components/ui/spin";
 import { StarsBackground } from "~/components/ui/stars";
 import { cn, generateRandomString } from "~/lib/utils";
 
@@ -125,7 +127,7 @@ export default function SignupForm() {
               type="submit"
               disabled={loading}
             >
-              Sign up &rarr;
+              Sign up {loading ? <Spin /> : <ArrowRight />}
               <BottomGradient />
             </button>
 

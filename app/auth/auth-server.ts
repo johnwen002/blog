@@ -4,7 +4,6 @@ import { CamelCasePlugin, Kysely } from "kysely";
 // import { D1Dialect } from "@noxharmonium/kysely-d1";
 import { D1Dialect } from "kysely-d1";
 import type { AppLoadContext } from "react-router";
-import { Resend } from "resend";
 
 let authInstance: ReturnType<typeof betterAuth>;
 
@@ -20,37 +19,37 @@ export function createBetterAuth(
   if (!authInstance) {
     authInstance = betterAuth({
       database,
-      rateLimit: {
-        enabled: true,
-      },
-      emailVerification: {
-        sendOnSignUp: true,
-        autoSignInAfterVerification: true,
-        sendResetPassword: async ({ user, url, token }, request) => {
-          const resend = new Resend(env.RESEND_API_KEY);
+      // rateLimit: {
+      //   enabled: true,
+      // },
+      // emailVerification: {
+      //   sendOnSignUp: true,
+      //   autoSignInAfterVerification: true,
+      //   sendResetPassword: async ({ user, url, token }, request) => {
+      //     const resend = new Resend(env.RESEND_API_KEY);
 
-          await resend.emails.send({
-            from: "Acme <onboarding@resend.dev>",
-            to: [user.email],
-            subject: "Reset your password",
-            text: `Click the link to reset your password: ${url}`,
-          });
-        },
-        sendVerificationEmail: async ({ user, url, token }, request) => {
-          const resend = new Resend(env.RESEND_API_KEY);
+      //     await resend.emails.send({
+      //       from: "Acme <onboarding@resend.dev>",
+      //       to: [user.email],
+      //       subject: "Reset your password",
+      //       text: `Click the link to reset your password: ${url}`,
+      //     });
+      //   },
+      //   sendVerificationEmail: async ({ user, url, token }, request) => {
+      //     const resend = new Resend(env.RESEND_API_KEY);
 
-          await resend.emails.send({
-            from: "Acme <onboarding@resend.dev>",
-            to: [user.email],
-            subject: "Verify your email address",
-            text: `Click the link to verify your email: ${url}`,
-          });
-        },
-      },
-      emailAndPassword: {
-        enabled: true,
-        requireEmailVerification: true,
-      },
+      //     await resend.emails.send({
+      //       from: "Acme <onboarding@resend.dev>",
+      //       to: [user.email],
+      //       subject: "Verify your email address",
+      //       text: `Click the link to verify your email: ${url}`,
+      //     });
+      //   },
+      // },
+      // emailAndPassword: {
+      //   enabled: true,
+      //   requireEmailVerification: true,
+      // },
       secret: env.BETTER_AUTH_SECRET,
       // socialProviders: {
       //   github: {
