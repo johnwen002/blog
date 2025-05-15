@@ -46,10 +46,10 @@ export function createBetterAuth(
       //     });
       //   },
       // },
-      // emailAndPassword: {
-      //   enabled: true,
-      //   requireEmailVerification: true,
-      // },
+      emailAndPassword: {
+        enabled: true,
+        // requireEmailVerification: true,
+      },
       secret: env.BETTER_AUTH_SECRET,
       // socialProviders: {
       //   github: {
