@@ -1,3 +1,4 @@
+"use client"
 import { useLoaderData } from "react-router";
 import { getAuth } from "~/auth/auth-server";
 import SignUpForm from "~/components/signup-form";

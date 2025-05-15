@@ -15,7 +15,7 @@ import Spin from "~/components/ui/spin";
 import { cn } from "~/lib/utils";
 
 const formSchema = z.object({
-  email: z.string().email(),
+  email: z.string().email("Please use the validate email!"),
   password: z.string().min(8).max(50),
 });
 
@@ -51,10 +51,7 @@ export function LoginForm({ className }: React.ComponentProps<"form">) {
         onError: (ctx) => {
           console.log(ctx.error);
           // Handle the error
-          if (ctx.error.status === 403) {
-            toast("Please verify your email address");
-          }
-          //you can also show the original error message
+
           toast.error(ctx.error.message);
         },
       }

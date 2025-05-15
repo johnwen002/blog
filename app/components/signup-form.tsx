@@ -5,7 +5,7 @@ import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
 import { ArrowRight } from "lucide-react";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Form as RouterForm } from "react-router";
+import { redirect, Form as RouterForm } from "react-router";
 import { z } from "zod";
 import { getAuthClient } from "~/auth/auth-client";
 import { Button } from "~/components/ui/button";
@@ -55,6 +55,7 @@ export default function SignupForm() {
           // redirect to home
           console.log("success");
           setLoading(false);
+          redirect("/login");
         },
         onError: (ctx) => {
           console.log(ctx.error);
@@ -124,7 +125,7 @@ export default function SignupForm() {
               )}
             />
             <Button
-              className="flex flex-col items-center justify-center"
+              className="flex items-center justify-center w-full"
               type="submit"
               disabled={loading}
             >
