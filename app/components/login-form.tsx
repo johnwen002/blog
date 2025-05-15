@@ -31,7 +31,6 @@ export function LoginForm({ className }: React.ComponentProps<"form">) {
   const [loading, setLoading] = useState(false);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("login");
     await getAuthClient().signIn.email(
       {
         email: values.email,
@@ -78,7 +77,7 @@ export function LoginForm({ className }: React.ComponentProps<"form">) {
           <FormField
             name="email"
             control={form.control}
-            render={({field}) => (
+            render={({ field }) => (
               <div className="grid gap-3">
                 <Label htmlFor="email">Email</Label>
                 <Input
@@ -95,7 +94,7 @@ export function LoginForm({ className }: React.ComponentProps<"form">) {
             <FormField
               name="password"
               control={form.control}
-              render={({field}) => (
+              render={({ field }) => (
                 <>
                   <div className="flex items-center">
                     <Label htmlFor="password">Password</Label>
@@ -111,11 +110,7 @@ export function LoginForm({ className }: React.ComponentProps<"form">) {
               )}
             />
           </div>
-          <Button
-            type="submit"
-            className="w-full"
-            form="my-form"
-          >
+          <Button type="submit" className="w-full" form="my-form">
             Login {loading && <Spin />}
           </Button>
 
