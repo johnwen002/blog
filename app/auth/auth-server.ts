@@ -3,7 +3,7 @@ import { betterAuth } from "better-auth";
 import { CamelCasePlugin, Kysely } from "kysely";
 // import { D1Dialect } from "@noxharmonium/kysely-d1";
 import { D1Dialect } from "kysely-d1";
-import type { AppLoadContext } from "react-router";
+import { type AppLoadContext } from "react-router";
 
 let authInstance: ReturnType<typeof betterAuth>;
 
@@ -19,6 +19,7 @@ export function createBetterAuth(
   if (!authInstance) {
     authInstance = betterAuth({
       database,
+
       // rateLimit: {
       //   enabled: true,
       // },
