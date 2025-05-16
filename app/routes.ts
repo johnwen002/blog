@@ -5,15 +5,15 @@ export default [
   layout("routers/secutiry.tsx", { id: "secutiry" }, [
     route("/sign-up", "./routes/sign-up.tsx", { id: "sign-up" }),
     route("/login", "./routes/login.tsx", { id: "login" }),
+    layout(
+      "./layout/bo-layout.tsx",
+      {
+        id: "bo-layout",
+      },
+      [route("/", "./routes/home.tsx")]
+    ),
+    layout("./layout/blog-layout.tsx", [
+      route("/articles", "./routes/articles.tsx"),
+    ]),
   ]),
-  layout("./layout/blog-layout.tsx", [
-    route("/articles", "./routes/articles.tsx"),
-  ]),
-  layout(
-    "./layout/bo-layout.tsx",
-    {
-      id: "bo-layout",
-    },
-    [route("/", "./routes/home.tsx")]
-  ),
 ] satisfies RouteConfig;
