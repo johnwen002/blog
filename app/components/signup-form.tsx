@@ -2,19 +2,21 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
+import { authClient } from "auth-client";
 import { ArrowRight } from "lucide-react";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { redirect, Form as RouterForm } from "react-router";
+import { toast } from "sonner";
 import { z } from "zod";
-import { getAuthClient } from "~/auth/auth-client";
+import { StarsBackground } from "~/components/animate-ui/backgrounds/stars";
 import { Button } from "~/components/ui/button";
 import { Form, FormField } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import Spin from "~/components/ui/spin";
-import { StarsBackground } from "~/components/ui/stars";
-import { cn, generateRandomString } from "~/lib/utils";
+import { generateRandomString } from "~/lib/strings";
+import { cn } from "~/lib/utils";
 
 export default function SignupForm() {
   const formSchema = z.object({
@@ -34,7 +36,7 @@ export default function SignupForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log("sign up");
-    await getAuthClient().signUp.email(
+    await authClient.signUp.email(
       {
         email: values.email,
         password: values.password,
@@ -42,7 +44,7 @@ export default function SignupForm() {
         image: `https://api.dicebear.com/9.x/pixel-art/svg?seed=${generateRandomString(
           5
         )}`,
-        callbackURL: "/login",
+        callbackURL: "/dashboard",
       },
 
       {
@@ -59,6 +61,7 @@ export default function SignupForm() {
         },
         onError: (ctx) => {
           console.log(ctx.error);
+          toast.error("ERROR" + ctx.error.message);
           setLoading(false);
         },
       }
@@ -66,7 +69,7 @@ export default function SignupForm() {
   }
 
   return (
-    <StarsBackground className="w-screen h-screen p-3 flex items-center justify-center">
+    <StarsBackground className="w-screen h-screen flex items-center justify-center overflow-hidden">
       <div className="shadow-input mx-auto w-full max-w-md rounded-none bg-white p-4 md:rounded-2xl md:p-8 dark:bg-black">
         <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
           Welcome

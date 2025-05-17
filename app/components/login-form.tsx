@@ -1,12 +1,12 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { authClient } from "auth-client";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { NavLink, Form as RouterForm } from "react-router";
 import { toast } from "sonner";
 import { z } from "zod";
-import { getAuthClient } from "~/auth/auth-client";
 import { Button } from "~/components/ui/button";
 import { Form, FormField } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
@@ -31,7 +31,7 @@ export function LoginForm({ className }: React.ComponentProps<"form">) {
   const [loading, setLoading] = useState(false);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    await getAuthClient().signIn.email(
+    await authClient.signIn.email(
       {
         email: values.email,
         password: values.password,

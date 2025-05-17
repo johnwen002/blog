@@ -1,19 +1,18 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { drizzle } from "drizzle-orm/d1";
-// import { env } from "process";
-
-const db = drizzle("");
+import { db } from "~/db";
+import * as schema from "~/db/schema";
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
-    provider: "sqlite",
-    usePlural: false,
+    provider: "pg",
+    schema
   }),
-  appName: "blog",
-  plugins: [],
-  rateLimit: {
-    window: 10, // time window in seconds
-    max: 100, // max requests in the window
+  emailAndPassword: {
+    enabled: true,
+    autoSignIn: false,
   },
+
+  appName: "justsay-ai-frontend",
+  plugins: [],
 });
