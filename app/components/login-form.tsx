@@ -50,6 +50,7 @@ export function LoginForm({ className }: React.ComponentProps<"form">) {
         },
         onError: (ctx) => {
           console.log(ctx.error);
+          setLoading(false);
           // Handle the error
 
           toast.error(ctx.error.message);

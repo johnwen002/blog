@@ -1,8 +1,16 @@
+import { auth } from "auth";
 import { GalleryVerticalEnd } from "lucide-react";
 import { FireworksBackground } from "~/components/animate-ui/backgrounds/fireworks";
+import type { Route } from "./+types/login";
 
+import { redirect } from "react-router";
 import { LoginForm } from "~/components/login-form";
-
+export async function loader({ context, request }: Route.LoaderArgs) {
+  const session = await auth.api.getSession({ headers: request.headers });
+  if (session?.user) {
+    return redirect("/");
+  }
+}
 export default function LoginPage() {
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
